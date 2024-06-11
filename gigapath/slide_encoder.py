@@ -93,6 +93,8 @@ class LongNetViT(nn.Module):
                 **kwargs):
         super().__init__()
 
+        self.tile_size = tile_size
+
         # --------------------------------------------------------------------------
         # MAE encoder specifics
         self.patch_embed = PatchEmbed(in_chans, embed_dim)
@@ -173,7 +175,7 @@ class LongNetViT(nn.Module):
         output: torch.Tensor
             The positional indices of the patches, of shape [N, L]
         """
-        coords_ = torch.floor(coords / 256.0)
+        coords_ = torch.floor(coords / float(self.tile_size))
         pos = coords_[..., 0] * self.slide_ngrids + coords_[..., 1]
         return pos.long() + 1  # add 1 for the cls token
 
