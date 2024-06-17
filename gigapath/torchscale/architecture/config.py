@@ -1,6 +1,6 @@
 # Copyright (c) 2022 Microsoft
 # Licensed under The MIT License [see LICENSE for details]
-
+import numpy as np      # needed for "eval()" on line 71 ....
 
 class EncoderConfig(object):
     def __init__(self, **kwargs):
